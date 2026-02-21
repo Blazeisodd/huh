@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loud Autoplay Test</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    body {
+      background-image: url('https://example.com/your-background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat; /* full-page background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Welcome</h1>
+    <p>If the audio didn't start, click Play.</p>
+    <button id="playBtn">Play at Full Volume</button>
+    <audio id="bgAudio" src="https://example.com/your-audio.mp3"></audio>
+  </div>
+
+  <script>
+    const audio = document.getElementById('bgAudio');
+    const btn = document.getElementById('playBtn');
+
+    // Try to autoplay on load
+    window.addEventListener('load', () => {
+      audio.volume = 1.0;              // full volume
+      const p = audio.play();          // attempt autoplay
+      if (p !== undefined) {
+        p.catch(() => {
+          
+          console.log('Autoplay blocked by browser');
+        });
+      }
+    });
+
+    btn.addEventListener('click', () => {
+      audio.volume = 1.0;
+      audio.play();
+    });
+  </script>
+</body>
+</html>
