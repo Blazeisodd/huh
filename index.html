@@ -2,28 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Loud Autoplay Test</title>
+  <title>Video Background + Audio</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
     }
     body {
-      background-image: url('https://example.com/your-background.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat; /* full-page background */
-      display: flex;
-      align-items: center;
-      justify-content: center;
       font-family: Arial, sans-serif;
       color: white;
     }
+    
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;      
+    }
     .overlay {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 20px 30px;
-      border-radius: 10px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
       text-align: center;
     }
     button {
@@ -35,10 +44,19 @@
   </style>
 </head>
 <body>
+ 
+  <video id="bgVideo"
+         autoplay
+         loop
+         muted
+         playsinline>
+    <source src="https://github.com/Blazeisodd/huh/raw/main/yeeps-animation.mp4" type="video/mp4">
+  </video>
+
   <div class="overlay">
     <h1>Welcome</h1>
     <p>If the audio didn't start, click Play.</p>
-    <button id="playBtn">Play at Full Volume</button>
+    <button id="playBtn">Play Audio at Full Volume</button>
     <audio id="bgAudio" src="https://github.com/Blazeisodd/huh/raw/main/weight.mp3"></audio>
   </div>
 
@@ -46,18 +64,18 @@
     const audio = document.getElementById('bgAudio');
     const btn = document.getElementById('playBtn');
 
-    // Try to autoplay on load
+    
     window.addEventListener('load', () => {
-      audio.volume = 1.0;              // full volume
-      const p = audio.play();          // attempt autoplay
+      audio.volume = 1.0;
+      const p = audio.play();
       if (p !== undefined) {
         p.catch(() => {
-          
-          console.log('Autoplay blocked by browser');
+          console.log('Autoplay blocked; waiting for user click');
         });
       }
     });
 
+   
     btn.addEventListener('click', () => {
       audio.volume = 1.0;
       audio.play();
