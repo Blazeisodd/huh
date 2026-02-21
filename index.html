@@ -13,14 +13,12 @@
     body {
       font-family: Arial, sans-serif;
       color: white;
-    }
-    
-    /* Fullscreen background image */
-    body {
+      /* Fullscreen background image - FIXED */
       background-image: url('https://static.wikia.nocookie.net/yeeps/images/a/ab/Yeeps_Player.png/revision/latest?cb=20240723065515');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background-size: contain;        /* Shows full image without cropping */
+      background-position: center;     /* Centers it */
+      background-repeat: no-repeat;    /* No tiling */
+      background-color: #1a1a1a;       /* Dark background if image doesn't fill */
     }
     
     /* Dark gray blur overlay - initially visible */
